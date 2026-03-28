@@ -1,35 +1,70 @@
-# Nav stack Browser History Engine (C++)
+# NAVSTACK: Browser History Management System
 
-A lightweight C++ simulation of a web browser's navigation system. This project demonstrates the practical application of **Stacks** and **Doubly Linked Lists** to manage URL history and forward-navigation states.
+**NAVSTACK** is a C++ based simulation of a web browser's navigation engine. It utilizes a custom **Stack** data structure (implemented via Singly Linked Lists) to manage the complex logic of moving backward and forward through web history.
 
+Unlike a simple simulation, NAVSTACK integrates with your operating system to actually open the URLs in your default web browser.
 
+---
 
-## 🚀 Features
+## 🛠️ Data Structures & Logic
 
-- **Real Browser Integration:** Automatically opens URLs in your system's default web browser using native OS commands.
-- **Dual-Stack Navigation:** Uses a `backStack` and `forwardStack` to provide seamless "Back" and "Forward" functionality.
-- **Metadata Storage:** Stores a description/content snippet for each visited site using a Hash Map (`unordered_map`).
-- **Cross-Platform:** Works on Windows (`start`), macOS (`open`), and Linux (`xdg-open`).
+The project demonstrates the practical application of **Linear Data Structures** and **Hash Maps**:
 
-## 🛠️ Data Structures Used
+* **Custom Stack Class:** Built using a **Singly Linked List**. Each `Node` stores the URL and a pointer to the next page in the stack. 
+    * *Efficiency:* Push, Pop, and Peek operations all run in **O(1)** time.
+* **Dual-Stack Architecture:** * `backStack`: Stores the history of pages visited.
+    * `forwardStack`: Stores pages moved away from via the "back" command.
+* **Unordered Map:** Acts as a persistent history log, mapping unique URLs to user-provided descriptions for instant retrieval.
 
-1.  **Doubly Linked List:** Used to build the custom Stack class, allowing for efficient memory allocation of history nodes.
-2.  **Stack (LIFO):** * `backStack`: Stores the history of pages you can return to.
-    * `forwardStack`: Stores pages you've gone back from, which are cleared upon a new `visit`.
-3.  **Hash Map:** Maps URLs to their descriptions for $O(1)$ average time complexity retrieval during history lookups.
+## 🚀 Key Features
 
-## 💻 How It Works
+* **Live Browser Integration:** Uses system-level commands (`start`, `open`, or `xdg-open`) to launch URLs in Chrome, Firefox, Safari, etc.
+* **Smart Protocol Injection:** Automatically detects if a URL is missing a protocol and prepends `https://` for valid browsing.
+* **Navigation Sync:** Visiting a new page automatically clears the `forwardStack`, mimicking real browser behavior.
+* **Cross-Platform Compatibility:** Optimized for Windows, macOS, and Linux.
 
-| Command | Action |
-| :--- | :--- |
-| `visit` | Navigates to a new URL, pushes the current page to the `backStack`, and clears the `forwardStack`. |
-| `back` | Pops the top of the `backStack` and moves the current page to the `forwardStack`. |
-| `forward` | Pops the top of the `forwardStack` and moves the current page to the `backStack`. |
-| `history` | Displays all unique URLs visited during the session and their descriptions. |
+---
 
-## ⚙️ Installation & Usage
+## 💻 Command Reference
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/yourusername/browser-history-engine.git](https://github.com/yourusername/browser-history-engine.git)
-   cd browser-history-engine
+| Command | Action | Logic |
+| :--- | :--- | :--- |
+| `visit` | Go to a new URL | Push current to `backStack`, clear `forwardStack` |
+| `back` | Go to previous page | Pop from `backStack`, push current to `forwardStack` |
+| `forward` | Revisit a page | Pop from `forwardStack`, push current to `backStack` |
+| `history` | View session log | Display all URL-Description pairs from the Map |
+| `exit` | Quit | Close the application |
+
+---
+
+## 🔧 Installation & Usage
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/AairaHemal/NAVSTACK-Browser-History-Management.git](https://github.com/AairaHemal/NAVSTACK-Browser-History-Management.git)
+    cd NAVSTACK-Browser-History-Management
+    ```
+
+2.  **Compile the source code:**
+    ```bash
+    g++ main.cpp -o navstack
+    ```
+
+3.  **Run the application:**
+    ```bash
+    ./navstack
+    ```
+
+## 📝 Example Session
+
+```text
+Enter Homepage: google.com
+
+[visit, back, forward, history, exit]
+> visit
+URL: github.com
+Description: Development_Platform
+
+[visit, back, forward, history, exit]
+> back
+Now at: google.com
