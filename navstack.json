@@ -1,0 +1,35 @@
+{
+  "name": "NAVSTACK-Browser-History-Management",
+  "displayName": "NAVSTACK",
+  "version": "1.1.0",
+  "description": "A C++ browser history simulator utilizing a custom Linked-List Stack implementation for efficient URL navigation and system-level integration.",
+  "author": "Aaira Hemal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AairaHemal/NAVSTACK-Browser-History-Management"
+  },
+  "technical_stack": {
+    "language": "C++",
+    "data_structures": [
+      {
+        "type": "Stack",
+        "implementation": "Singly Linked List",
+        "complexity": "O(1) Push/Pop/Peek",
+        "description": "Custom stack class managing top-node pointers for back/forward history."
+      },
+      {
+        "type": "Hash Map",
+        "implementation": "std::unordered_map",
+        "purpose": "O(1) mapping of URLs to page descriptions."
+      }
+    ],
+    "os_integration": "Cross-platform system shell execution (Windows, macOS, Linux)"
+  },
+  "features": [
+    "LIFO-based navigation logic",
+    "Automatic HTTPS protocol injection",
+    "Dynamic memory management with custom Node allocation",
+    "Integrated system calls to launch default web browsers"
+  ]
+}
